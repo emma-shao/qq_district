@@ -3,7 +3,7 @@ const request = require('request');
 const settings = require('./config.json');
 
 const qb = require('node-querybuilder').QueryBuilder(settings.mysql, 'mysql');
-const table = 'qq_district';
+const table = 'qq_districts';
 
 // 行政区划json地址
 const directUrl = 'http://apis.map.qq.com/ws/district/v1/list?key=' + settings.qq_key;
@@ -53,7 +53,7 @@ function updateOrCreate(row, layer, parent_id=0) {
     if (layer < 2) {
         data.name = row.name;
         data.pinyin = row.pinyin.join('');
-        data.initial = row.pinyin[0].charAt(0);
+        data.letter = row.pinyin[0].charAt(0).toUpperCase();
     } else {
         data.name = row.fullname; //全名取作名字
     }
